@@ -6,7 +6,7 @@ import { useMouseGlow } from "../hooks/use-mouse-glow"
 
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState("about")
-  const mousePosition = useMouseGlow()
+  const { mousePosition, isMobile } = useMouseGlow()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,13 +41,23 @@ export default function Portfolio() {
   return (
     <div className="min-h-screen bg-slate-900 text-slate-300 relative">
       {/* Mouse glow effect */}
-      <div 
-        className="mouse-glow"
-        style={{
-          '--mouse-x': `${mousePosition.x}px`,
-          '--mouse-y': `${mousePosition.y}px`,
-        } as React.CSSProperties}
-      />
+      {!isMobile ? (
+        <div 
+          className="mouse-glow"
+          style={{
+            '--mouse-x': `${mousePosition.x}px`,
+            '--mouse-y': `${mousePosition.y}px`,
+          } as React.CSSProperties}
+        />
+      ) : (
+        <div 
+          className="mouse-glow"
+          style={{
+            '--mouse-x': `0px`,
+            '--mouse-y': `0px`,
+          } as React.CSSProperties}
+        />
+      )}
       <div className="mx-auto max-w-screen-xl px-6 py-12 font-sans md:px-12 md:py-20 lg:px-24 lg:py-0 content-layer">
         <div className="lg:flex lg:justify-between lg:gap-4">
           {/* Left Column - Navigation */}
@@ -141,12 +151,12 @@ export default function Portfolio() {
           <main id="content" className="pt-24 lg:w-1/2 lg:py-24">
             {/* About Section */}
             <section id="about" className="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24">
-              <div className="sticky top-0 z-20 -mx-6 mb-4 w-screen bg-slate-900/75 px-6 py-5 backdrop-blur md:-mx-12 md:px-12 lg:sr-only lg:relative lg:top-auto lg:mx-auto lg:w-full lg:px-0 lg:py-0 lg:opacity-0">
+              <div className="sticky top-0 z-20 -mx-6 mb-4 w-screen bg-transparent px-6 py-5 backdrop-blur md:-mx-12 md:px-12 lg:sr-only lg:relative lg:top-auto lg:mx-auto lg:w-full lg:px-0 lg:py-0 lg:opacity-0">
                 <h2 className="text-sm font-bold uppercase tracking-widest text-slate-200 lg:sr-only">About</h2>
               </div>
               <div>
                 <p className="mb-4">
-                  I'm a passionate Software Engineer and Data Scientist currently pursuing my Master's in Data Science
+                  I'm a passionate Software Engineer and Data Scientist just finished my Master's in Data Science
                   at{" "}
                   <a
                     className="font-medium text-slate-200 hover:text-teal-300 focus-visible:text-teal-300"
@@ -190,7 +200,7 @@ export default function Portfolio() {
 
             {/* Experience Section */}
             <section id="experience" className="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24">
-              <div className="sticky top-0 z-20 -mx-6 mb-4 w-screen bg-slate-900/75 px-6 py-5 backdrop-blur md:-mx-12 md:px-12 lg:sr-only lg:relative lg:top-auto lg:mx-auto lg:w-full lg:px-0 lg:py-0 lg:opacity-0">
+              <div className="sticky top-0 z-20 -mx-6 mb-4 w-screen bg-transparent px-6 py-5 backdrop-blur md:-mx-12 md:px-12 lg:sr-only lg:relative lg:top-auto lg:mx-auto lg:w-full lg:px-0 lg:py-0 lg:opacity-0">
                 <h2 className="text-sm font-bold uppercase tracking-widest text-slate-200 lg:sr-only">Experience</h2>
               </div>
               <div>
@@ -200,7 +210,7 @@ export default function Portfolio() {
                     <div className="group relative grid pb-1 transition-all sm:grid-cols-8 sm:gap-8 md:gap-4 lg:hover:!opacity-100 lg:group-hover/list:opacity-50">
                       <div className="absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block lg:group-hover:bg-slate-800/50 lg:group-hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] lg:group-hover:drop-shadow-lg"></div>
                       <header className="z-10 mb-2 mt-1 text-xs font-semibold uppercase tracking-wide text-slate-500 sm:col-span-2">
-                        Aug 2024 — Present
+                        Aug 2024 — May 2025
                       </header>
                       <div className="z-10 sm:col-span-6">
                         <h3 className="font-medium leading-snug text-slate-200">
@@ -328,24 +338,30 @@ export default function Portfolio() {
 
             {/* Projects Section */}
             <section id="projects" className="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24">
-              <div className="sticky top-0 z-20 -mx-6 mb-4 w-screen bg-slate-900/75 px-6 py-5 backdrop-blur md:-mx-12 md:px-12 lg:sr-only lg:relative lg:top-auto lg:mx-auto lg:w-full lg:px-0 lg:py-0 lg:opacity-0">
+              <div className="sticky top-0 z-20 -mx-6 mb-4 w-screen bg-transparent px-6 py-5 backdrop-blur md:-mx-12 md:px-12 lg:sr-only lg:relative lg:top-auto lg:mx-auto lg:w-full lg:px-0 lg:py-0 lg:opacity-0">
                 <h2 className="text-sm font-bold uppercase tracking-widest text-slate-200 lg:sr-only">Projects</h2>
               </div>
               <div>
-                <ul className="group/list">
+                <ol className="group/list">
+                  {/* Query Mind - Semantic Search Engine */}
                   <li className="mb-12">
-                    <div className="group relative grid gap-4 pb-1 transition-all sm:grid-cols-8 sm:gap-8 md:gap-4 lg:hover:!opacity-100 lg:group-hover/list:opacity-50">
+                    <div className="group relative grid pb-1 transition-all sm:grid-cols-8 sm:gap-8 md:gap-4 lg:hover:!opacity-100 lg:group-hover/list:opacity-50">
                       <div className="absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block lg:group-hover:bg-slate-800/50 lg:group-hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] lg:group-hover:drop-shadow-lg"></div>
-                      <div className="z-10 sm:order-2 sm:col-span-6">
-                        <h3>
-                          <a
-                            className="inline-flex items-baseline font-medium leading-tight text-slate-200 hover:text-teal-300 focus-visible:text-teal-300 group/link text-base"
-                            href="#"
-                            aria-label="Query Mind - Semantic Search Engine"
-                          >
-                            <span className="absolute -inset-x-4 -inset-y-2.5 hidden rounded md:-inset-x-6 md:-inset-y-4 lg:block"></span>
-                            <span>Query Mind</span>
-                          </a>
+                      <header className="z-10 mb-2 mt-1 text-xs font-semibold uppercase tracking-wide text-slate-500 sm:col-span-2">
+                        Jan 2025 — Mar 2025
+                      </header>
+                      <div className="z-10 sm:col-span-6">
+                        <h3 className="font-medium leading-snug text-slate-200">
+                          <div>
+                            <a
+                              className="inline-flex items-baseline font-medium leading-tight text-slate-200 hover:text-teal-300 focus-visible:text-teal-300 group/link text-base"
+                              href="#"
+                              aria-label="Query Mind - Semantic Search Engine"
+                            >
+                              <span className="absolute -inset-x-4 -inset-y-2.5 hidden rounded md:-inset-x-6 md:-inset-y-4 lg:block"></span>
+                              <span>Query Mind — Semantic Search Engine</span>
+                            </a>
+                          </div>
                         </h3>
                         <p className="mt-2 text-sm leading-normal">
                           Built a semantic search engine with scalable web interfaces using React and Next.js. Designed
@@ -375,19 +391,64 @@ export default function Portfolio() {
                           ))}
                         </ul>
                       </div>
-                      <img
-                        alt="Query Mind project screenshot"
-                        loading="lazy"
-                        width="200"
-                        height="48"
-                        decoding="async"
-                        className="rounded border-2 border-slate-200/10 transition group-hover:border-slate-200/30 sm:order-1 sm:col-span-2 sm:translate-y-1"
-                        src="/placeholder.svg?height=120&width=200"
-                      />
                     </div>
                   </li>
-                </ul>
+
+                  {/* Music Recommendation System */}
+                  <li className="mb-12">
+                    <div className="group relative grid pb-1 transition-all sm:grid-cols-8 sm:gap-8 md:gap-4 lg:hover:!opacity-100 lg:group-hover/list:opacity-50">
+                      <div className="absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block lg:group-hover:bg-slate-800/50 lg:group-hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] lg:group-hover:drop-shadow-lg"></div>
+                      <header className="z-10 mb-2 mt-1 text-xs font-semibold uppercase tracking-wide text-slate-500 sm:col-span-2">
+                        Sep 2024 — Dec 2024
+                      </header>
+                      <div className="z-10 sm:col-span-6">
+                        <h3 className="font-medium leading-snug text-slate-200">
+                          <div>
+                            <a
+                              className="inline-flex items-baseline font-medium leading-tight text-slate-200 hover:text-teal-300 focus-visible:text-teal-300 group/link text-base"
+                              href="#"
+                              aria-label="Music Recommendation System"
+                            >
+                              <span className="absolute -inset-x-4 -inset-y-2.5 hidden rounded md:-inset-x-6 md:-inset-y-4 lg:block"></span>
+                              <span>Music Recommendation System</span>
+                            </a>
+                          </div>
+                        </h3>
+                        <p className="mt-2 text-sm leading-normal">
+                          Developed a robust music recommendation system using the Spotify dataset by applying advanced 
+                          preprocessing techniques such as binning, one-hot encoding, and PCA for dimensionality reduction, 
+                          which improved model performance. Designed and evaluated four approaches—Random, Baseline, Content-Based, 
+                          and Collaborative Filtering—using metrics like RMSE, Precision, and Catalog Coverage, with Collaborative Filtering 
+                          achieving the highest accuracy. Successfully addressed challenges such as the cold start problem to enhance user experience.
+                        </p>
+                        <ul className="mt-2 flex flex-wrap" aria-label="Technologies used">
+                          {[
+                            "Python",
+                            "Pandas",
+                            "Scikit-learn",
+                            "Matplotlib/Seaborn",
+                            "Jupyter",
+                            "Spotify API",
+                            "Numpy",
+                            "KNN",
+                            "PCA",
+                            "Binning",
+                            "One-hot Encoding",
+                          ].map((tech) => (
+                            <li key={tech} className="mr-1.5 mt-2">
+                              <div className="flex items-center rounded-full bg-teal-400/10 px-3 py-1 text-xs font-medium leading-5 text-teal-300">
+                                {tech}
+                              </div>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </li>
+                </ol>
               </div>
+
+
             </section>
 
             {/* Footer */}

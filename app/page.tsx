@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { Github, Linkedin, Mail, Phone, ExternalLink } from "lucide-react"
 import { useMouseGlow } from "../hooks/use-mouse-glow"
+import { Chatbot } from "../components/chatbot/chatbot"
 
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState("about")
@@ -41,23 +42,13 @@ export default function Portfolio() {
   return (
     <div className="min-h-screen bg-slate-900 text-slate-300 relative">
       {/* Mouse glow effect */}
-      {!isMobile ? (
-        <div 
-          className="mouse-glow"
-          style={{
-            '--mouse-x': `${mousePosition.x}px`,
-            '--mouse-y': `${mousePosition.y}px`,
-          } as React.CSSProperties}
-        />
-      ) : (
-        <div 
-          className="mouse-glow"
-          style={{
-            '--mouse-x': `0px`,
-            '--mouse-y': `0px`,
-          } as React.CSSProperties}
-        />
-      )}
+      <div 
+        className="mouse-glow"
+        style={{
+          '--mouse-x': isMobile ? '0px' : `${mousePosition.x}px`,
+          '--mouse-y': isMobile ? '0px' : `${mousePosition.y}px`,
+        } as React.CSSProperties}
+      />
       <div className="mx-auto max-w-screen-xl px-6 py-12 font-sans md:px-12 md:py-20 lg:px-24 lg:py-0 content-layer">
         <div className="lg:flex lg:justify-between lg:gap-4">
           {/* Left Column - Navigation */}
@@ -447,8 +438,6 @@ export default function Portfolio() {
                   </li>
                 </ol>
               </div>
-
-
             </section>
 
             {/* Footer */}
@@ -487,6 +476,9 @@ export default function Portfolio() {
           </main>
         </div>
       </div>
+      
+      {/* Chatbot */}
+      <Chatbot />
     </div>
   )
 }

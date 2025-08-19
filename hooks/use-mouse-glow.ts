@@ -20,15 +20,35 @@ export const useMouseGlow = () => {
 
   useEffect(() => {
     if (isMobile) return
+    
+    let rafId: number
+    let lastX = 0
+    let lastY = 0
+    
     const handleMouseMove = (event: MouseEvent) => {
-      setMousePosition({
-        x: event.clientX,
-        y: event.clientY
+      // Throttle updates for smoother performance
+      if (Math.abs(event.clientX - lastX) < 2 && Math.abs(event.clientY - lastY) < 2) {
+        return
+      }
+      
+      lastX = event.clientX
+      lastY = event.clientY
+      
+      // Use requestAnimationFrame for optimal performance
+      rafId = requestAnimationFrame(() => {
+        setMousePosition({
+          x: event.clientX,
+          y: event.clientY
+        })
       })
     }
-    window.addEventListener('mousemove', handleMouseMove)
+    
+    window.addEventListener('mousemove', handleMouseMove, { passive: true })
     return () => {
       window.removeEventListener('mousemove', handleMouseMove)
+      if (rafId) {
+        cancelAnimationFrame(rafId)
+      }
     }
   }, [isMobile])
 
